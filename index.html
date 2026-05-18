@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead Filament — Never Lose Another Lead to Voicemail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:       #0b1526;
+  --navy-mid:   #112039;
+  --navy-light: #1a2f52;
+  --blue:       #2d7ff9;
+  --blue-light: #5b9dfa;
+  --blue-glow:  rgba(45,127,249,0.18);
+  --white:      #ffffff;
+  --muted:      rgba(255,255,255,0.55);
+  --faint:      rgba(255,255,255,0.25);
+  --border:     rgba(255,255,255,0.08);
+  --border-blue:rgba(45,127,249,0.35);
+  --radius:     8px;
+  --radius-lg:  14px;
+  --radius-xl:  20px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,21,38,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+
+.nav-logo {
+  font-family: 'Sora', sans-serif; font-size: 1.2rem; font-weight: 700;
+  color: var(--white); text-decoration: none; letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--blue-light); }
+
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.15s; }
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--blue); color: #fff; border: none;
+  padding: 0.55rem 1.3rem; border-radius: var(--radius);
+  font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600;
+  cursor: pointer; text-decoration: none; transition: background 0.15s, transform 0.1s;
+}
+.nav-cta:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  min-height: calc(100vh - 64px);
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center; gap: 4rem;
+  max-width: 1160px; margin: 0 auto; padding: 5rem 3rem;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--blue-light); background: var(--blue-glow);
+  border: 1px solid var(--border-blue); border-radius: 100px;
+  padding: 0.35rem 1rem; margin-bottom: 1.75rem;
+}
+
+.hero-eyebrow::before {
+  content: ''; display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--blue);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.hero h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 1.25rem;
+}
+.hero h1 .accent { color: var(--blue-light); }
+
+.hero-sub {
+  font-size: 1.05rem; color: var(--muted); line-height: 1.7;
+  margin-bottom: 2.25rem; max-width: 460px;
+}
+
+.hero-actions { display: flex; gap: 0.875rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--blue); color: #fff; border: none;
+  padding: 0.875rem 1.75rem; border-radius: var(--radius);
+  font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
+  text-decoration: none; transition: background 0.15s, transform 0.1s; cursor: pointer;
+}
+.btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--border); padding: 0.875rem 1.5rem; border-radius: var(--radius);
+  font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500;
+  text-decoration: none; transition: border-color 0.15s, color 0.15s; cursor: pointer;
+}
+.btn-ghost:hover { border-color: var(--faint); color: var(--white); }
+
+.hero-proof { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.proof-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--muted); }
+.proof-dot { color: var(--blue-light); font-weight: 700; }
+
+/* PHONE MOCKUP */
+.hero-right { display: flex; justify-content: center; align-items: center; position: relative; }
+
+.phone-wrap { position: relative; width: 300px; }
+
+.phone-glow {
+  position: absolute; inset: -50px;
+  background: radial-gradient(ellipse at center, rgba(45,127,249,0.2) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+.phone-frame {
+  width: 300px; background: #16181d;
+  border-radius: 44px; border: 7px solid #2a2c33;
+  padding: 14px 0 20px;
+  box-shadow: 0 48px 96px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.phone-notch {
+  width: 88px; height: 24px; background: #16181d;
+  border-radius: 0 0 16px 16px;
+  margin: 0 auto 10px;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.notch-dot { width: 7px; height: 7px; border-radius: 50%; background: #2e3038; }
+.notch-cam { width: 10px; height: 10px; border-radius: 50%; background: #1e2028; border: 1.5px solid #3a3c46; }
+
+.missed-call-screen {
+  background: #0e1016; margin: 0 6px; border-radius: 10px;
+  padding: 14px 13px 16px; margin-bottom: 8px;
+}
+
+.mc-time { font-size: 9.5px; color: rgba(255,255,255,0.28); text-align: center; margin-bottom: 11px; letter-spacing: 0.06em; }
+
+.mc-bubble {
+  background: rgba(255,59,48,0.1); border: 1px solid rgba(255,59,48,0.22);
+  border-radius: 12px; padding: 10px 11px;
+  display: flex; align-items: center; gap: 9px;
+}
+
+.mc-icon {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,59,48,0.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+
+.mc-label { font-size: 8.5px; color: rgba(255,80,60,0.85); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1px; }
+.mc-name { font-size: 12px; color: rgba(255,255,255,0.88); font-weight: 600; }
+.mc-number { font-size: 9.5px; color: rgba(255,255,255,0.38); margin-top: 1px; }
+
+.sms-screen { background: #000; margin: 0 6px; border-radius: 10px; padding: 10px 11px 14px; }
+
+.sms-header {
+  display: flex; align-items: center; gap: 8px;
+  padding-bottom: 9px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 9px;
+}
+
+.sms-avatar {
+  width: 27px; height: 27px; border-radius: 50%;
+  background: linear-gradient(135deg, #2d7ff9, #5b9dfa);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+
+.sms-contact { font-size: 10.5px; font-weight: 600; color: rgba(255,255,255,0.88); }
+.sms-subtitle { font-size: 8.5px; color: rgba(255,255,255,0.32); }
+
+.sms-messages { display: flex; flex-direction: column; gap: 5px; }
+
+.msg {
+  max-width: 82%; padding: 6px 9px; border-radius: 13px;
+  font-size: 9.5px; line-height: 1.45;
+}
+.msg-out { background: #2d7ff9; color: #fff; align-self: flex-end; border-bottom-right-radius: 3px; }
+.msg-in { background: #1c1c1e; color: rgba(255,255,255,0.82); align-self: flex-start; border-bottom-left-radius: 3px; }
+.msg-time { font-size: 7.5px; color: rgba(255,255,255,0.22); text-align: center; margin: 2px 0 3px; }
+
+.msg-badge {
+  align-self: flex-start;
+  background: rgba(52,199,89,0.12); border: 1px solid rgba(52,199,89,0.28);
+  color: #4cd964; font-size: 8px; font-weight: 700;
+  padding: 3px 8px; border-radius: 100px; letter-spacing: 0.04em;
+}
+
+/* STAT BAND */
+.stat-band {
+  background: var(--navy-mid);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 3rem;
+}
+.stat-band-inner {
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center;
+}
+.stat-num {
+  font-family: 'Sora', sans-serif; font-size: 2.4rem; font-weight: 800;
+  color: var(--blue-light); line-height: 1; margin-bottom: 0.4rem; letter-spacing: -0.02em;
+}
+.stat-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.45; }
+
+/* SECTIONS */
+.section { max-width: 1000px; margin: 0 auto; padding: 5rem 3rem; }
+.section-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 0.75rem; }
+.section-heading { font-family: 'Sora', sans-serif; font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 1rem; }
+.section-sub { font-size: 1rem; color: var(--muted); max-width: 520px; line-height: 1.7; margin-bottom: 3rem; }
+
+/* PROBLEM CARDS */
+.problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.problem-card {
+  background: var(--navy-mid); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.75rem; transition: border-color 0.2s;
+}
+.problem-card:hover { border-color: var(--border-blue); }
+.pcard-stat { font-family: 'Sora', sans-serif; font-size: 2.6rem; font-weight: 800; color: var(--blue-light); line-height: 1; margin-bottom: 0.6rem; letter-spacing: -0.02em; }
+.pcard-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
+.pcard-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+.pcard-source { font-size: 0.68rem; color: var(--faint); margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+
+/* HOW IT WORKS */
+.hiw-bg { background: var(--navy-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.steps::before {
+  content: ''; position: absolute; top: 22px; left: 11%; right: 11%;
+  height: 1px; background: var(--border-blue); z-index: 0;
+}
+.step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 1.25rem; position: relative; z-index: 1; }
+.step-num {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--navy); border: 2px solid var(--blue);
+  color: var(--blue-light); font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; flex-shrink: 0;
+}
+.step-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; }
+.step-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+/* WHO IT'S FOR */
+.who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.who-card {
+  background: var(--navy-mid); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.5rem;
+  display: flex; gap: 1rem; align-items: flex-start; transition: border-color 0.2s;
+}
+.who-card:hover { border-color: var(--border-blue); }
+.who-icon { font-size: 1.4rem; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+.who-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
+.who-note { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+/* PRICING */
+.pricing-wrap { max-width: 500px; margin: 0 auto; }
+.pricing-card {
+  background: var(--navy-mid); border: 1px solid var(--border-blue);
+  border-radius: var(--radius-xl); padding: 2.5rem; position: relative; overflow: hidden;
+}
+.pricing-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, var(--blue), var(--blue-light));
+}
+.pricing-badge {
+  display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--blue-glow); color: var(--blue-light); border: 1px solid var(--border-blue);
+  border-radius: 100px; padding: 0.3rem 0.9rem; margin-bottom: 1.5rem;
+}
+.pricing-was { font-size: 0.85rem; color: var(--faint); text-decoration: line-through; margin-bottom: 0.2rem; }
+.pricing-price { font-family: 'Sora', sans-serif; font-size: 3.5rem; font-weight: 800; line-height: 1; letter-spacing: -0.03em; margin-bottom: 0.25rem; }
+.pricing-price sup { font-family: 'Inter', sans-serif; font-size: 1.4rem; font-weight: 600; vertical-align: super; line-height: 0; }
+.pricing-period { font-size: 0.82rem; color: var(--muted); margin-bottom: 2rem; }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 2rem; }
+.pricing-features li { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.88rem; color: var(--muted); }
+.pricing-features li::before { content: '✓'; color: var(--blue-light); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.pricing-note { font-size: 0.74rem; color: var(--faint); text-align: center; margin-top: 1rem; line-height: 1.5; }
+
+/* CTA */
+.cta-section {
+  background: linear-gradient(160deg, var(--navy-light) 0%, var(--navy) 100%);
+  border-top: 1px solid var(--border); padding: 6rem 3rem; text-align: center;
+}
+.cta-section h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800;
+  letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 1rem;
+}
+.cta-section h2 .accent { color: var(--blue-light); }
+.cta-section p { color: var(--muted); font-size: 1rem; max-width: 440px; margin: 0 auto 2rem; line-height: 1.65; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border); padding: 1.75rem 3rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); text-decoration: none; }
+.footer-logo span { color: var(--blue-light); }
+footer p { font-size: 0.78rem; color: var(--faint); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem; min-height: auto; gap: 3rem; }
+  .hero-right { order: -1; }
+  .phone-wrap, .phone-frame { width: 260px; }
+  .stat-band { padding: 2rem 1.5rem; }
+  .stat-band-inner { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 3.5rem 1.5rem; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .steps::before { display: none; }
+  .who-grid { grid-template-columns: 1fr 1fr; }
+  .cta-section { padding: 4rem 1.5rem; }
+  footer { padding: 1.5rem; }
+}
+
+@media (max-width: 560px) {
+  .stat-band-inner { grid-template-columns: 1fr 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .who-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; }
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Lead<span>Filament</span></a>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a href="https://calendly.com/sparkman61/30min" target="_blank" class="nav-cta">Book a Free Demo →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">AI Lead Recovery · Always On</div>
+    <h1>Your phone rang.<br>You missed it.<br><span class="accent">They hired someone else.</span></h1>
+    <p class="hero-sub">Lead Filament texts back every missed call in seconds, qualifies the lead automatically, and alerts you when it's hot — so you never lose a job to voicemail again.</p>
+    <div class="hero-actions">
+      <a href="https://calendly.com/sparkman61/30min" target="_blank" class="btn-primary">Book a Free 15-Min Demo →</a>
+      <a href="#how-it-works" class="btn-ghost">See how it works</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-item"><span class="proof-dot">✓</span> Fully managed setup</div>
+      <div class="proof-item"><span class="proof-dot">✓</span> No apps to install</div>
+      <div class="proof-item"><span class="proof-dot">✓</span> Cancel anytime</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="phone-wrap">
+      <div class="phone-glow"></div>
+      <div class="phone-frame">
+        <div class="phone-notch">
+          <div class="notch-dot"></div>
+          <div class="notch-cam"></div>
+          <div class="notch-dot"></div>
+        </div>
+        <div class="missed-call-screen">
+          <div class="mc-time">TODAY · 2:14 PM</div>
+          <div class="mc-bubble">
+            <div class="mc-icon">📵</div>
+            <div>
+              <div class="mc-label">Missed Call</div>
+              <div class="mc-name">Unknown Caller</div>
+              <div class="mc-number">(443) 555-0192</div>
+            </div>
+          </div>
+        </div>
+        <div class="sms-screen">
+          <div class="sms-header">
+            <div class="sms-avatar">LF</div>
+            <div>
+              <div class="sms-contact">Lead Filament</div>
+              <div class="sms-subtitle">Responding for your business</div>
+            </div>
+          </div>
+          <div class="sms-messages">
+            <div class="msg msg-out">Hey — sorry I missed your call. What do you need help with?</div>
+            <div class="msg msg-in">Hi, my AC stopped working. Need someone today if possible</div>
+            <div class="msg msg-out">Got it — sounds urgent. What's your address?</div>
+            <div class="msg msg-in">4821 Elm Street, Annapolis</div>
+            <div class="msg-time">LEAD CAPTURED</div>
+            <div class="msg-badge">🔥 Hot lead — escalating to you now</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stat-band">
+  <div class="stat-band-inner">
+    <div><div class="stat-num">62%</div><div class="stat-desc">of small business calls go unanswered during business hours</div></div>
+    <div><div class="stat-num">85%</div><div class="stat-desc">of callers who hit voicemail will never call back</div></div>
+    <div><div class="stat-num">&lt;8 min</div><div class="stat-desc">before most callers have already booked your competitor</div></div>
+    <div><div class="stat-num">$126k</div><div class="stat-desc">average annual revenue lost to missed calls by a service business</div></div>
+  </div>
+</div>
+
+<section class="section" id="problem">
+  <div class="section-label">The problem</div>
+  <h2 class="section-heading">You're losing jobs you already paid to get</h2>
+  <p class="section-sub">You spend money on Google Ads, SEO, and listings to make your phone ring. Then you miss the call because you're on a job. That lead is gone in under 8 minutes.</p>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="pcard-stat">62%</div>
+      <div class="pcard-title">Calls go unanswered</div>
+      <div class="pcard-desc">Home service businesses miss nearly two-thirds of inbound calls — not because they're bad at their job, but because they're busy doing it.</div>
+      <div class="pcard-source">Source: 411 Locals — 85 businesses monitored across 58 industries over 30 days</div>
+    </div>
+    <div class="problem-card">
+      <div class="pcard-stat">85%</div>
+      <div class="pcard-title">Gone after voicemail</div>
+      <div class="pcard-desc">Most callers won't leave a message and won't try again. They move to the next contractor on Google before your voicemail even finishes.</div>
+      <div class="pcard-source">Source: PATLive, corroborated by Forbes and BrightLocal 2024–2025 research</div>
+    </div>
+    <div class="problem-card">
+      <div class="pcard-stat">10×</div>
+      <div class="pcard-title">Higher conversion rate</div>
+      <div class="pcard-desc">Phone leads convert at 10× the rate of web form leads. That missed call isn't a nuisance — it's your highest-quality lead of the day.</div>
+      <div class="pcard-source">Source: BIA/Kelsey research on inbound call conversion rates</div>
+    </div>
+  </div>
+</section>
+
+<div class="hiw-bg" id="how-it-works">
+  <section class="section">
+    <div class="section-label">How it works</div>
+    <h2 class="section-heading">A missed call becomes a qualified lead in under 60 seconds</h2>
+    <p class="section-sub">No scripts to write. No apps to install. We set it up, run it, and keep it going.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">You miss a call</div>
+        <div class="step-desc">You're on a job. The phone rings. Under the old model, that lead is gone the moment it hits voicemail.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">We text them instantly</div>
+        <div class="step-desc">Within seconds, the caller gets a text from your business number — a real conversation opener, not a robo-message.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">AI qualifies the lead</div>
+        <div class="step-desc">We capture what they need, how urgent it is, and their contact info — all without you touching your phone.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">You get the hot ones</div>
+        <div class="step-desc">We escalate urgent or high-value leads directly to you. You step in to close. Everything else is handled.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="section">
+  <div class="section-label">Who it's for</div>
+  <h2 class="section-heading">Built for businesses that run on calls</h2>
+  <p class="section-sub">If your phone is your front door and you're sometimes too busy to answer it, Lead Filament closes the gap.</p>
+  <div class="who-grid">
+    <div class="who-card"><div class="who-icon">🔧</div><div><div class="who-title">Plumbers & HVAC</div><div class="who-note">Emergency calls can't wait 4 hours. Catch them before they call the next number on Google.</div></div></div>
+    <div class="who-card"><div class="who-icon">⚡</div><div><div class="who-title">Electricians</div><div class="who-note">You're in a panel box. Your phone is in your pocket. Lead Filament picks up where you can't.</div></div></div>
+    <div class="who-card"><div class="who-icon">🏠</div><div><div class="who-title">General Contractors</div><div class="who-note">High-ticket projects start with a single call. Never lose one to voicemail again.</div></div></div>
+    <div class="who-card"><div class="who-icon">🏡</div><div><div class="who-title">Real Estate Agents</div><div class="who-note">A missed buyer inquiry on a $400k home is a $12,000 commission gone in seconds.</div></div></div>
+    <div class="who-card"><div class="who-icon">🦷</div><div><div class="who-title">Dental & Medical</div><div class="who-note">Patients call once. If you're with someone, Lead Filament keeps the next patient warm.</div></div></div>
+    <div class="who-card"><div class="who-icon">⚖️</div><div><div class="who-title">Law Firms</div><div class="who-note">A missed intake call can cost you a case worth tens of thousands in fees.</div></div></div>
+  </div>
+</section>
+
+<div class="hiw-bg" id="pricing">
+  <section class="section">
+    <div class="section-label" style="text-align:center;">Pricing</div>
+    <h2 class="section-heading" style="text-align:center; margin-bottom:0.5rem;">Simple. Flat. No surprises.</h2>
+    <p class="section-sub" style="text-align:center; margin: 0.5rem auto 2.5rem;">No per-call fees. No setup costs. No contracts.</p>
+    <div class="pricing-wrap">
+      <div class="pricing-card">
+        <div class="pricing-badge">Founding Member Rate</div>
+        <div class="pricing-was">Regular price: $397/month</div>
+        <div class="pricing-price"><sup>$</sup>297</div>
+        <div class="pricing-period">per month — locked in for your first 6 months</div>
+        <ul class="pricing-features">
+          <li>Instant SMS response to every missed call</li>
+          <li>AI lead qualification over text</li>
+          <li>Hot lead escalation directly to your phone</li>
+          <li>Dedicated business number — not your personal line</li>
+          <li>Fully managed — we set it up and keep it running</li>
+          <li>No scripts to write, no apps to install</li>
+          <li>Cancel anytime, no questions asked</li>
+        </ul>
+        <a href="https://calendly.com/sparkman61/30min" target="_blank" class="btn-primary" style="width:100%; justify-content:center;">
+          Book Your Free 15-Min Demo →
+        </a>
+        <p class="pricing-note">We're onboarding our first few clients at this founding member rate.<br>Once we have 3 clients, the price goes to $397/month.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="cta-section">
+  <h2>Every missed call is a job<br><span class="accent">you already paid for.</span></h2>
+  <p>15 minutes is all it takes to see exactly how many leads you're losing — and what it looks like when every call gets answered.</p>
+  <a href="https://calendly.com/sparkman61/30min" target="_blank" class="btn-primary" style="font-size:1rem; padding: 0.9rem 2rem;">Book a Free Demo →</a>
+</section>
+
+<footer>
+  <a href="#" class="footer-logo">Lead<span>Filament</span></a>
+  <p>© 2026 Lead Filament · leadfilament.com</p>
+</footer>
+
+</body>
+</html>
