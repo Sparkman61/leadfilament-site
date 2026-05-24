@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { api } from '../api'
 
@@ -12,6 +13,7 @@ const NAV = [
 
 export default function Shell({ children }) {
   const navigate = useNavigate()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   async function handleLogout() {
     try {
@@ -20,16 +22,24 @@ export default function Shell({ children }) {
     navigate('/login')
   }
 
+  function handleNavClick() {
+    setMenuOpen(false)
+  }
+
   return (
     <div className="shell">
-      <aside className="sidebar">
-        <NavLink to="/" className="sidebar-logo">
+      <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu">
+        {menuOpen ? '✕' : '☰'}
+      </button>
+      {menuOpen && <div className="sidebar-overlay" onClick={() => setMenuOpen(false)} />}
+      <aside className={`sidebar${menuOpen ? ' sidebar-open' : ''}`}>
+        <NavLink to="/" className="sidebar-logo" onClick={handleNavClick}>
           Lead<span>Filament</span>
         </NavLink>
         <ul className="sidebar-nav">
           {NAV.map(({ to, label, icon }) => (
             <li key={to}>
-              <NavLink to={to} end={to === '/'} className={({ isActive }) => (isActive ? 'active' : '')}>
+              <NavLink to={to} end={to === '/'} className={({ isActive }) => (isActive ? 'active' : '')} onClick={handleNavClick}>
                 <span>{icon}</span>
                 {label}
               </NavLink>

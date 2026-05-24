@@ -520,3 +520,38 @@ html, body, #root {
 @media (max-width: 600px) {
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ── MOBILE HAMBURGER ─────────────────────────── */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 200;
+  background: var(--navy-mid);
+  border: 1px solid var(--border);
+  color: var(--white);
+  font-size: 1.25rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99;
+}
+
+@media (max-width: 700px) {
+  .hamburger { display: flex; }
+  .sidebar-overlay { display: block; }
+  .sidebar { position: fixed; left: -220px; top: 0; height: 100vh; z-index: 100; transition: left 0.2s ease; }
+  .sidebar-open { left: 0; }
+  .main-content { padding: 1.5rem 1rem; }
+}
