@@ -39,7 +39,7 @@ export const api = {
   },
   reports: {
     current: () => request('/reports/current'),
-    list: () => request('/reports'),
+    list: () => request('/reports/history'),
   },
   billing: {
     get: () => request('/billing'),
