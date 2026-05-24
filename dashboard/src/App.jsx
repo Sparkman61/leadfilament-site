@@ -33,7 +33,7 @@ function AuthGate({ children }) {
 
 export default function App() {
   return (
-    <BrowserRouter basename="/dashboard">
+    <BrowserRouter basename="/">
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route
