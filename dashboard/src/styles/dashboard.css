@@ -257,7 +257,7 @@ html, body, #root {
 }
 
 @media (max-width: 700px) {
-  .sidebar { display: none; }
+  .sidebar { display: flex; position: fixed; left: -220px; top: 0; height: 100vh; z-index: 100; transition: left 0.2s ease; }
   .main-content { padding: 1.5rem 1rem; }
 }
 
@@ -551,7 +551,6 @@ html, body, #root {
 @media (max-width: 700px) {
   .hamburger { display: flex; }
   .sidebar-overlay { display: block; }
-  .sidebar { position: fixed; left: -220px; top: 0; height: 100vh; z-index: 100; transition: left 0.2s ease; }
   .sidebar-open { left: 0; }
   .main-content { padding: 1.5rem 1rem; }
 }
