@@ -327,6 +327,8 @@ html, body, #root {
 .badge-escalated { background: rgba(255,214,10,0.12); color: var(--yellow); border: 1px solid rgba(255,214,10,0.3); }
 .badge-owner_takeover { background: rgba(255,214,10,0.12); color: var(--yellow); border: 1px solid rgba(255,214,10,0.3); }
 .badge-dead { background: rgba(255,255,255,0.06); color: var(--faint); border: 1px solid var(--border); }
+.badge-completed { background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid var(--border); }
+.badge-stopped { background: rgba(255,59,48,0.08); color: rgba(255,107,107,0.7); border: 1px solid rgba(255,59,48,0.2); }
 
 /* ── CONVERSATION LIST ────────────────────────── */
 .conv-layout {
