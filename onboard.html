@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started - Lead Filament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0b1526;
+  --navy-mid: #112039;
+  --navy-light: #1a2f52;
+  --blue: #2d7ff9;
+  --blue-light: #5b9dfa;
+  --blue-glow: rgba(45,127,249,0.18);
+  --green: #34c759;
+  --green-glow: rgba(52,199,89,0.15);
+  --white: #ffffff;
+  --muted: rgba(255,255,255,0.55);
+  --faint: rgba(255,255,255,0.25);
+  --border: rgba(255,255,255,0.08);
+  --border-blue: rgba(45,127,249,0.35);
+  --radius: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(45,127,249,0.12), transparent 28%),
+    linear-gradient(180deg, var(--navy-light) 0%, var(--navy) 18%, var(--navy) 100%);
+  color: var(--white);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,21,38,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+
+.nav-logo {
+  font-family: 'Sora', sans-serif; font-size: 1.2rem; font-weight: 700;
+  color: var(--white); text-decoration: none; letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--blue-light); }
+
+.nav-cta {
+  background: var(--blue); color: #fff; border: none;
+  padding: 0.55rem 1.3rem; border-radius: var(--radius);
+  font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600;
+  cursor: pointer; text-decoration: none; transition: background 0.15s, transform 0.1s;
+}
+.nav-cta:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+.page-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 4.5rem 3rem 5.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.page-copy {
+  position: sticky;
+  top: 96px;
+  padding-right: 1rem;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--blue-light); background: var(--blue-glow);
+  border: 1px solid var(--border-blue); border-radius: 100px;
+  padding: 0.35rem 1rem; margin-bottom: 1.5rem;
+}
+
+.hero-eyebrow::before {
+  content: ''; display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--blue);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.page-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2.1rem, 4.5vw, 3.3rem);
+  font-weight: 800; line-height: 1.08; letter-spacing: -0.03em;
+  margin-bottom: 1.1rem;
+}
+.page-title .accent { color: var(--blue-light); }
+
+.page-sub {
+  font-size: 1.02rem; color: var(--muted); line-height: 1.72;
+  max-width: 500px; margin-bottom: 2rem;
+}
+
+.proof-list {
+  display: grid;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.proof-item {
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 0.9rem; color: var(--muted);
+}
+
+.proof-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--blue-glow);
+  border: 1px solid var(--border-blue);
+  color: var(--blue-light);
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.proof-note {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  color: var(--faint);
+  font-size: 0.76rem;
+}
+
+.form-panel {
+  background: rgba(17,32,57,0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 24px 72px rgba(0,0,0,0.26);
+}
+
+.form-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+}
+
+.panel-intro {
+  margin-bottom: 1.5rem;
+}
+
+.panel-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.45rem;
+}
+
+.panel-sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.form-section-label {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue-light);
+  margin: 1.7rem 0 1rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.form-section-label:first-of-type { margin-top: 0; }
+
+.field-row {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.field-row.cols-2 { grid-template-columns: 1fr 1fr; }
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.field .req { color: var(--blue-light); }
+.field .optional { color: var(--faint); font-weight: 500; }
+
+.field input,
+.field select {
+  background: var(--navy);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.72rem 0.9rem;
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+  outline: none;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.field input::placeholder { color: var(--faint); }
+
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.4)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  padding-right: 2.3rem;
+  cursor: pointer;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--border-blue);
+  box-shadow: 0 0 0 3px var(--blue-glow);
+}
+
+.field input.invalid,
+.field select.invalid {
+  border-color: rgba(255,69,58,0.92);
+  box-shadow: 0 0 0 3px rgba(255,69,58,0.15);
+}
+
+.field-hint {
+  font-size: 0.73rem;
+  color: var(--faint);
+  line-height: 1.45;
+}
+
+.agreement-block {
+  background: var(--navy);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem 1.2rem;
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+
+.agreement-block.invalid {
+  border-color: rgba(255,69,58,0.92);
+  box-shadow: 0 0 0 3px rgba(255,69,58,0.15);
+}
+
+.agreement-check {
+  width: 20px; height: 20px;
+  border-radius: 5px;
+  border: 2px solid var(--border-blue);
+  background: transparent;
+  flex-shrink: 0;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--blue);
+}
+
+.agreement-text {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.agreement-text strong { color: var(--white); }
+
+.form-error {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius);
+  background: rgba(255,69,58,0.12);
+  border: 1px solid rgba(255,69,58,0.28);
+  color: #ff7b74;
+  font-size: 0.85rem;
+}
+
+.form-error.visible { display: block; }
+
+.submit-wrap {
+  margin-top: 1.4rem;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--blue); color: #fff; border: none;
+  padding: 0.875rem 1.75rem; border-radius: var(--radius);
+  font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
+  text-decoration: none; transition: background 0.15s, transform 0.1s; cursor: pointer;
+}
+.btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--border); padding: 0.875rem 1.5rem; border-radius: var(--radius);
+  font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500;
+  text-decoration: none; transition: border-color 0.15s, color 0.15s; cursor: pointer;
+}
+.btn-ghost:hover { border-color: var(--faint); color: var(--white); }
+
+.submit-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.submit-btn:disabled {
+  opacity: 0.68;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.disclaimer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.76rem;
+  color: var(--faint);
+  line-height: 1.55;
+}
+
+.success-screen {
+  display: none;
+  text-align: center;
+  padding: 1.25rem 0 0.2rem;
+}
+
+.success-screen.visible { display: block; }
+
+.success-icon {
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  margin: 0 auto 1.4rem;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--green-glow);
+  border: 2px solid rgba(52,199,89,0.35);
+  color: var(--green);
+  font-size: 2rem;
+}
+
+.success-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.85rem;
+}
+
+.success-title .accent { color: var(--green); }
+
+.success-body {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 420px;
+  margin: 0 auto 1.8rem;
+}
+
+.next-steps {
+  background: var(--navy);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.next-steps-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue-light);
+  margin-bottom: 0.9rem;
+}
+
+.next-step-item {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.next-step-item:last-child { border-bottom: none; }
+
+.next-step-num {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--blue-glow);
+  border: 1px solid var(--border-blue);
+  color: var(--blue-light);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-top: 1px;
+}
+
+.next-step-text {
+  font-size: 0.84rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.next-step-text strong { color: var(--white); }
+
+.success-actions {
+  display: flex;
+  gap: 0.85rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+footer {
+  border-top: 1px solid var(--border); padding: 1.75rem 3rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); text-decoration: none; }
+.footer-logo span { color: var(--blue-light); }
+footer p { font-size: 0.78rem; color: var(--faint); }
+
+@media (max-width: 980px) {
+  nav { padding: 0 1.5rem; }
+  .page-shell {
+    grid-template-columns: 1fr;
+    padding: 3rem 1.5rem 4.25rem;
+    gap: 1.6rem;
+  }
+  .page-copy {
+    position: static;
+    padding-right: 0;
+  }
+  footer { padding: 1.5rem; }
+}
+
+@media (max-width: 560px) {
+  .field-row.cols-2 { grid-template-columns: 1fr; }
+  .form-panel { padding: 1.35rem; }
+  .page-title { font-size: clamp(1.95rem, 10vw, 2.55rem); }
+  .success-actions {
+    flex-direction: column;
+  }
+  .btn-primary, .btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Lead<span>Filament</span></a>
+  <a href="https://calendly.com/sparkman61/30min" target="_blank" class="nav-cta">Book a Free Demo →</a>
+</nav>
+
+<main class="page-shell">
+  <section class="page-copy" aria-labelledby="page-title">
+    <div class="hero-eyebrow">Founding Member Signup</div>
+    <h1 class="page-title" id="page-title">Reserve your spot before<br><span class="accent">the next missed call costs you.</span></h1>
+    <p class="page-sub">Tell us a little about your business and we will reach out within 1 business day to finish setup. No payment is collected on this page. We reserve your founding member rate first, then handle the rest with you directly.</p>
+    <div class="proof-list" aria-label="signup highlights">
+      <div class="proof-item"><span class="proof-dot">1</span> Founding member pricing is reserved as soon as you submit.</div>
+      <div class="proof-item"><span class="proof-dot">2</span> We follow up to collect your forwarding number, social profiles, and billing details.</div>
+      <div class="proof-item"><span class="proof-dot">3</span> Your setup stays fully managed, with no apps to install or scripts to write.</div>
+    </div>
+    <div class="proof-note">Fully managed onboarding · No charge until setup is complete</div>
+  </section>
+
+  <section class="form-panel" aria-label="Lead Filament onboarding form">
+    <div id="form-card">
+      <div class="panel-intro">
+        <h2 class="panel-title">Start your onboarding</h2>
+        <p class="panel-sub">This form feeds directly into our intake system so we can queue your business, confirm availability, and contact you fast.</p>
+      </div>
+
+      <form id="intake-form" novalidate>
+        <div class="form-section-label">Your Business</div>
+        <div class="field-row">
+          <div class="field">
+            <label for="business_name">Business Name <span class="req">*</span></label>
+            <input type="text" id="business_name" name="business_name" placeholder="Acme Plumbing & Heating" autocomplete="organization" required>
+          </div>
+        </div>
+
+        <div class="field-row cols-2">
+          <div class="field">
+            <label for="business_type">Business Type <span class="req">*</span></label>
+            <select id="business_type" name="business_type" required>
+              <option value="">Select your trade...</option>
+              <option value="plumbing">Plumbing</option>
+              <option value="hvac">HVAC</option>
+              <option value="electrical">Electrical</option>
+              <option value="roofing">Roofing</option>
+              <option value="general_contractor">General Contractor</option>
+              <option value="appliance_repair">Appliance Repair</option>
+              <option value="real_estate">Real Estate</option>
+              <option value="dental">Dental / Medical</option>
+              <option value="law">Law Firm</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="state">State <span class="req">*</span></label>
+            <select id="state" name="state" required>
+              <option value="">Select state...</option>
+              <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option>
+              <option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option>
+              <option value="DC">DC</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option>
+              <option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option>
+              <option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option>
+              <option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option>
+              <option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option>
+              <option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option>
+              <option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option>
+              <option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option>
+              <option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option>
+              <option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option>
+              <option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-section-label">Your Contact Info</div>
+        <div class="field-row cols-2">
+          <div class="field">
+            <label for="owner_name">Your Name <span class="req">*</span></label>
+            <input type="text" id="owner_name" name="owner_name" placeholder="John Smith" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="owner_email">Your Email <span class="req">*</span></label>
+            <input type="email" id="owner_email" name="owner_email" placeholder="john@acmeplumbing.com" autocomplete="email" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="owner_phone">Your Mobile Number <span class="req">*</span></label>
+            <input type="tel" id="owner_phone" name="owner_phone" placeholder="+1 (305) 555-0100" autocomplete="tel" required>
+            <span class="field-hint">We use this to coordinate setup and send important launch updates.</span>
+          </div>
+        </div>
+
+        <div class="form-section-label">Your Business Location</div>
+        <div class="field-row">
+          <div class="field">
+            <label for="location_name">Location Name <span class="req">*</span></label>
+            <input type="text" id="location_name" name="location_name" placeholder="Acme Plumbing - Main Office" required>
+            <span class="field-hint">This is the first location we will configure. Additional locations can be added later.</span>
+          </div>
+        </div>
+        <div class="field-row cols-2">
+          <div class="field">
+            <label for="business_phone">Business Phone <span class="req">*</span></label>
+            <input type="tel" id="business_phone" name="business_phone" placeholder="+1 (305) 555-0200" autocomplete="tel" required>
+            <span class="field-hint">The number your customers call today.</span>
+          </div>
+          <div class="field">
+            <label for="area_code">Preferred Area Code <span class="req">*</span></label>
+            <input type="text" id="area_code" name="area_code" placeholder="305" maxlength="3" inputmode="numeric" required>
+            <span class="field-hint">For your dedicated Lead Filament number.</span>
+          </div>
+        </div>
+
+        <div class="form-section-label">Hot Lead Alerts</div>
+        <div class="field-row cols-2">
+          <div class="field">
+            <label for="escalation_phone">Alert Phone Number <span class="req">*</span></label>
+            <input type="tel" id="escalation_phone" name="escalation_phone" placeholder="+1 (305) 555-0100" autocomplete="tel" required>
+            <span class="field-hint">Where we send urgent lead notifications. Usually your mobile.</span>
+          </div>
+          <div class="field">
+            <label for="escalation_email">Alert Email <span class="optional">(optional)</span></label>
+            <input type="email" id="escalation_email" name="escalation_email" placeholder="alerts@acmeplumbing.com" autocomplete="email">
+          </div>
+        </div>
+
+        <div class="agreement-block" id="agreement-block">
+          <input type="checkbox" class="agreement-check" id="agreed" name="agreed" required>
+          <label for="agreed" class="agreement-text">
+            I understand that after submitting this form, Lead Filament will contact me to collect
+            <strong>the phone number I want calls forwarded from</strong>,
+            <strong>any social profiles to monitor</strong>, and
+            <strong>payment details</strong> needed to activate my subscription. No charge happens until setup is complete and I confirm I am ready to go live.
+          </label>
+        </div>
+
+        <div class="form-error" id="form-error" aria-live="polite"></div>
+
+        <div class="submit-wrap">
+          <button type="submit" class="btn-primary submit-btn" id="submit-btn">Reserve My Founding Member Spot →</button>
+        </div>
+
+        <p class="disclaimer">
+          Founding member rate: $397/month, locked in for life. First 50 clients only.<br>
+          No payment required today. No apps to install.
+        </p>
+      </form>
+    </div>
+
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">You're on the list.<br><span class="accent">We'll be in touch.</span></h2>
+      <p class="success-body">Your founding member spot is reserved. Check your email for a confirmation, then expect a call or text from us within 1 business day to finish setup.</p>
+      <div class="next-steps">
+        <div class="next-steps-title">What happens next</div>
+        <div class="next-step-item">
+          <div class="next-step-num">1</div>
+          <div class="next-step-text"><strong>Check your email.</strong> A confirmation was sent to the address you provided.</div>
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">2</div>
+          <div class="next-step-text"><strong>We'll call or text you</strong> within 1 business day to finish setup.</div>
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">3</div>
+          <div class="next-step-text"><strong>We collect what we need:</strong> your forwarding number, social profiles, and payment details.</div>
+        </div>
+        <div class="next-step-item">
+          <div class="next-step-num">4</div>
+          <div class="next-step-text"><strong>You go live.</strong> Every missed call, text, and Facebook lead gets caught automatically.</div>
+        </div>
+      </div>
+      <div class="success-actions">
+        <a href="/" class="btn-primary">← Back to Lead Filament</a>
+        <a href="https://calendly.com/sparkman61/30min" target="_blank" class="btn-ghost">Book a Free Demo</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a href="/" class="footer-logo">Lead<span>Filament</span></a>
+  <p>© 2026 Lead Filament · leadfilament.com</p>
+</footer>
+
+<script>
+const API_URL = "https://api.leadfilament.com/api/lf/intake";
+const SUBMIT_LABEL = "Reserve My Founding Member Spot →";
+const SUBMITTING_LABEL = "Submitting...";
+
+function showError(message) {
+  const errorEl = document.getElementById("form-error");
+  errorEl.textContent = message;
+  errorEl.classList.add("visible");
+  errorEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function clearError() {
+  const errorEl = document.getElementById("form-error");
+  errorEl.textContent = "";
+  errorEl.classList.remove("visible");
+}
+
+function markInvalid(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add("invalid");
+}
+
+function clearInvalid() {
+  document.querySelectorAll(".invalid").forEach((el) => el.classList.remove("invalid"));
+  document.getElementById("agreement-block").classList.remove("invalid");
+}
+
+function getValue(id) {
+  return (document.getElementById(id)?.value || "").trim();
+}
+
+function validEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function validPhone(value) {
+  return /^[\d\s+()\-]{7,}$/.test(value);
+}
+
+function validAreaCode(value) {
+  return /^\d{3}$/.test(value);
+}
+
+async function submitForm(event) {
+  event.preventDefault();
+  clearError();
+  clearInvalid();
+
+  const fields = {
+    business_name: getValue("business_name"),
+    business_type: getValue("business_type"),
+    state: getValue("state"),
+    owner_name: getValue("owner_name"),
+    owner_email: getValue("owner_email"),
+    owner_phone: getValue("owner_phone"),
+    location_name: getValue("location_name"),
+    business_phone: getValue("business_phone"),
+    area_code: getValue("area_code"),
+    escalation_phone: getValue("escalation_phone"),
+    escalation_email: getValue("escalation_email") || null
+  };
+
+  const agreed = document.getElementById("agreed").checked;
+  const requiredFields = [
+    "business_name",
+    "business_type",
+    "state",
+    "owner_name",
+    "owner_email",
+    "owner_phone",
+    "location_name",
+    "business_phone",
+    "area_code",
+    "escalation_phone"
+  ];
+
+  let firstError = null;
+  for (const fieldName of requiredFields) {
+    if (!fields[fieldName]) {
+      markInvalid(fieldName);
+      if (!firstError) firstError = fieldName;
+    }
+  }
+
+  if (firstError) {
+    showError("Please fill in all required fields.");
+    document.getElementById(firstError).focus();
+    return;
+  }
+
+  if (!validEmail(fields.owner_email)) {
+    markInvalid("owner_email");
+    showError("Please enter a valid email address.");
+    document.getElementById("owner_email").focus();
+    return;
+  }
+
+  if (fields.escalation_email && !validEmail(fields.escalation_email)) {
+    markInvalid("escalation_email");
+    showError("Please enter a valid alert email address.");
+    document.getElementById("escalation_email").focus();
+    return;
+  }
+
+  if (!validPhone(fields.owner_phone)) {
+    markInvalid("owner_phone");
+    showError("Please enter a valid mobile number.");
+    document.getElementById("owner_phone").focus();
+    return;
+  }
+
+  if (!validPhone(fields.business_phone)) {
+    markInvalid("business_phone");
+    showError("Please enter a valid business phone number.");
+    document.getElementById("business_phone").focus();
+    return;
+  }
+
+  if (!validPhone(fields.escalation_phone)) {
+    markInvalid("escalation_phone");
+    showError("Please enter a valid alert phone number.");
+    document.getElementById("escalation_phone").focus();
+    return;
+  }
+
+  if (!validAreaCode(fields.area_code)) {
+    markInvalid("area_code");
+    showError("Area code must be exactly 3 digits.");
+    document.getElementById("area_code").focus();
+    return;
+  }
+
+  if (!agreed) {
+    document.getElementById("agreement-block").classList.add("invalid");
+    showError("Please check the box to confirm you understand the setup process.");
+    document.getElementById("agreed").focus();
+    return;
+  }
+
+  const submitBtn = document.getElementById("submit-btn");
+  submitBtn.disabled = true;
+  submitBtn.textContent = SUBMITTING_LABEL;
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...fields,
+        agreed_to_setup_requirements: true
+      })
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (response.ok) {
+      document.getElementById("form-card").style.display = "none";
+      document.getElementById("success-screen").classList.add("visible");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    showError(data.error || "Something went wrong. Please try again.");
+  } catch (error) {
+    showError("Could not reach our servers. Please check your connection and try again.");
+  }
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = SUBMIT_LABEL;
+}
+
+document.getElementById("intake-form").addEventListener("submit", submitForm);
+
+document.querySelectorAll("input, select").forEach((el) => {
+  el.addEventListener("input", () => el.classList.remove("invalid"));
+  el.addEventListener("change", () => el.classList.remove("invalid"));
+});
+</script>
+
+</body>
+</html>
